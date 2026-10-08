@@ -3,27 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Marka Vitrini ve Tam Ekran Akış</title>
+    <title>Modüler Premium Marka Vitrini</title>
     <link rel="stylesheet" href="vitrin-stil.css">
 </head>
 <body>
 
-    <!-- MARKA VİTRİNİ SARMALI (Kolay düzenleme için ayrı) -->
+    <!-- MARKA VİTRİNİ SARMALI -->
     <header class="brand-showcase-wrapper">
         <div class="showcase-header">
             <h2>Marka Keşfi</h2>
             <span class="subtitle">Özel Seçki ve İş Ortaklıkları</span>
         </div>
-        <div id="brand-slider" class="brand-slider">
-            <!-- Dinamik dolacak -->
-        </div>
+        <div id="brand-slider" class="brand-slider"></div>
     </header>
 
-    <!-- MARKA BİLGİ VE PAYLAŞ SARMALI (Kolay düzenleme için ayrı) -->
+    <!-- MARKA BİLGİ VE PAYLAŞ SARMALI -->
     <section id="brand-info-card" class="brand-info-card-wrapper">
         <div class="info-glass-panel">
             
-            <!-- PAYLAŞ İKONU SARMALI (İleride düzenlemek/taşımak için izole edildi) -->
+            <!-- PAYLAŞ İKONU SARMALI -->
             <div class="share-action-wrapper">
                 <button id="btn-share-brand" class="share-btn" title="Markayı Paylaş">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
@@ -33,7 +31,7 @@
 
             <span class="badge">Seçilen Marka</span>
             <h1 id="active-brand-title">Yükleniyor...</h1>
-            <p id="active-brand-desc">Marka detayları yükleniyor, lütfen bekleyin.</p>
+            <p id="active-brand-desc">Marka detayları yükleniyor...</p>
             <button id="btn-load-feed" class="btn-immersive">
                 <span>Ürün Akışını Başlat</span>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
@@ -41,18 +39,19 @@
         </div>
     </section>
 
-    <!-- TAM EKRAN AKIŞ SARMALI (Kolay düzenleme için ayrı) -->
+    <!-- TAM EKRAN AKIŞ SARMALI -->
     <div id="immersive-feed-overlay" class="immersive-overlay hidden">
         <div class="immersive-modal">
             <button id="btn-close-feed" class="close-btn" title="Kapat">&times;</button>
             <button id="btn-up" class="nav-btn up" aria-label="Yukarı">▲</button>
-            <div id="feed" class="feed-container">
-                <!-- Ürünler buraya tam ekran dolacak -->
-            </div>
+            <div id="feed" class="feed-container"></div>
             <button id="btn-down" class="nav-btn down" aria-label="Aşağı">▼</button>
         </div>
     </div>
 
-    <script src="vitrin-motor.js"></script>
+    <!-- MODÜLER JS DOSYALARI (Sırasıyla yüklenir) -->
+    <script src="js/api.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/akis.js"></script>
 </body>
 </html>
