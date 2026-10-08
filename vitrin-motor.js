@@ -1,46 +1,91 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marka Vitrini ve Tam Ekran Akış</title>
-    <link rel="stylesheet" href="vitrin-stil.css">
-</head>
-<body>
+var brandSlider = document.getElementById("brand-slider");
+var brandInfoCard = document.getElementById("brand-info-card");
+var activeBrandTitle = document.getElementById("active-brand-title");
+var activeBrandDesc = document.getElementById("active-brand-desc");
+var btnLoadFeed = document.getElementById("btn-load-feed");
+var feed = document.getElementById("feed");
 
-    <!-- ÜST KISIM: Yatay Kaydırılabilir Marka Slider'ı -->
-    <header class="brand-showcase">
-        <div class="showcase-header">
-            <h2>Marka Keşfi</h2>
-            <span class="subtitle">Özel Seçki ve İş Ortaklıkları</span>
-        </div>
-        <div id="brand-slider" class="brand-slider"></div>
-    </header>
+var selectedBrandData = null;
 
-    <!-- ORTA KISIM: Marka Hakkında ve Buton Alanı -->
-    <section id="brand-info-card" class="brand-info-card">
-        <div class="info-glass-panel">
-            <span class="badge">Seçilen Marka</span>
-            <h1 id="active-brand-title">Yükleniyor...</h1>
-            <p id="active-brand-desc">Marka detayları yükleniyor...</p>
-            <button id="btn-load-feed" class="btn-immersive">
-                <span>Ürün Akışını Başlat</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-            </button>
-        </div>
-    </section>
+// 1. Marka listesini JSON'dan çek ve slider'ı doldur
+fetch("data/markalar.json")
+  .then(function (res) { return res.json(); })
+  .then(function (brands) {
+    brands.forEach(function (b) {
+      var pill = document.createElement("div");
+      pill.className = "brand-pill";
+      pill.innerHTML = "<span>" + b.name + "</span>";
+      
+      pill.addEventListener("click", function () {
+        document.querySelectorAll(".brand-pill").forEach(function(p) { p.classList.remove("active"); });
+        pill.classList.add("active");
 
-    <!-- ALT KISIM: Tam Ekran Ürün Akış Modalı -->
-    <div id="immersive-feed-overlay" class="immersive-overlay hidden">
-        <div class="immersive-modal">
-            <button id="btn-close-feed" class="close-btn" title="Kapat">&times;</button>
-            <button id="btn-up" class="nav-btn up" aria-label="Yukarı">▲</button>
-            <div id="feed" class="feed-container"></div>
-            <button id="btn-down" class="nav-btn down" aria-label="Aşağı">▼</button>
-        </div>
-    </div>
+        selectedBrandData = b;
 
-    <!-- Tek Parça Çalışan Motor Dosyası -->
-    <script src="vitrin-motor.js"></script>
-</body>
-</html>
+        activeBrandTitle.textContent = b.name;
+        activeBrandDesc.textContent = b.description;
+        brandInfoCard.classList.remove("hidden");
+      });
+
+      brandSlider.appendChild(pill);
+    });
+  })
+  .catch(function(err) { console.error("Markalar yüklenemedi:", err); });
+
+// 2. "Ürünleri Gör" butonuna basıldığında o markanın JSON'unu çek ve akışı güncelle
+btnLoadFeed.addEventListener("click", function () {
+  if (!selectedBrandData) return;
+
+  var jsonFilePath = "data/" + selectedBrandData.jsonFile + ".json";
+  
+  feed.innerHTML = "<p class='welcome-placeholder'>Ürünler yükleniyor...</p>";
+
+  fetch(jsonFilePath)
+    .then(function (response) {
+      if (!response.ok) throw new Error("Ürün JSON dosyası bulunamadı.");
+      return response.json();
+    })
+    .then(function (products) {
+      feed.innerHTML = "";
+
+      products.forEach(function (p) {
+        var card = document.createElement("section");
+        card.className = "card";
+        card.id = p.id;
+
+        card.innerHTML =
+          '<div class="card-img"><img loading="lazy" alt=""></div>' +
+          '<div class="card-body">' +
+            '<h2 class="card-title"></h2>' +
+            '<p class="card-desc"></p>' +
+            '<a class="card-cta" target="_blank" rel="sponsored noopener">Ürünü incele</a>' +
+          '</div>';
+
+        card.querySelector("img").src = p.image;
+        card.querySelector("img").alt = p.title;
+        card.querySelector(".card-title").textContent = p.title;
+        card.querySelector(".card-desc").textContent = p.description;
+        card.querySelector(".card-cta").href = p.url;
+
+        feed.appendChild(card);
+      });
+
+      feed.scrollTop = 0;
+    })
+    .catch(function (error) {
+      console.error(error);
+      feed.innerHTML = "<p class='welcome-placeholder'>Bu markaya ait ürünler yüklenirken bir hata oluştu.</p>";
+    });
+});
+
+// Kaydırma ve Klavye Ok Tuşları
+function go(direction) {
+  feed.scrollBy({ top: direction * feed.clientHeight, behavior: "smooth" });
+}
+document.getElementById("btn-up").addEventListener("click", function () { go(-1); });
+document.getElementById("btn-down").addEventListener("click", function () { go(1); });
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "ArrowDown") { e.preventDefault(); go(1); }
+  if (e.key === "ArrowUp")   { e.preventDefault(); go(-1); }
+});
