@@ -1,0 +1,16 @@
+[
+  {
+    "id": "adidas-1",
+    "title": "Adidas Ultraboost",
+    "description": "İnanılmaz enerji dönüşümü ve yastıklama sunan efsanevi model.",
+    "image": "https://picsum.photos/id/30/600/600",
+    "url": "https://www.example.com/adidas-1"
+  },
+  {
+    "id": "adidas-2",
+    "title": "Adidas Originals Kapşonlu",
+    "description": "Günlük stiliniz için klasik sokak modası tasarımı.",
+    "image": "https://picsum.photos/id/31/600/600",
+    "url": "https://www.example.com/adidas-2"
+  }
+]
