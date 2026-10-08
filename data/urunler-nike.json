@@ -1,0 +1,16 @@
+[
+  {
+    "id": "nike-1",
+    "title": "Nike Air Zoom Pegasus",
+    "description": "Her adımda konfor sağlayan günlük koçluk ve koşu ayakkabısı.",
+    "image": "https://picsum.photos/id/21/600/600",
+    "url": "https://www.example.com/nike-1"
+  },
+  {
+    "id": "nike-2",
+    "title": "Nike Dri-FIT T-Shirt",
+    "description": "Ter tutmayan özel kumaş teknolojisi ile maksimum antrenman performansı.",
+    "image": "https://picsum.photos/id/22/600/600",
+    "url": "https://www.example.com/nike-2"
+  }
+]
