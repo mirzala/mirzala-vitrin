@@ -3,38 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinamik Marka Akış Vitrini</title>
+    <title>Premium Marka Vitrini ve Tam Ekran Akış</title>
     <link rel="stylesheet" href="vitrin-stil.css">
 </head>
 <body>
 
-    <!-- ÜST KISIM: Yatay Kaydırılabilir Premium Marka Slider'ı -->
-    <header class="brand-showcase">
-        <h1>Marka Keşfi</h1>
+    <!-- MARKA VİTRİNİ SARMALI (Kolay düzenleme için ayrı) -->
+    <header class="brand-showcase-wrapper">
+        <div class="showcase-header">
+            <h2>Marka Keşfi</h2>
+            <span class="subtitle">Özel Seçki ve İş Ortaklıkları</span>
+        </div>
         <div id="brand-slider" class="brand-slider">
-            <!-- JavaScript ile markalar buraya dinamik dolacak -->
+            <!-- Dinamik dolacak -->
         </div>
     </header>
 
-    <!-- ORTA KISIM: Seçilen Markanın Bilgi Kartı -->
-    <section id="brand-info-card" class="brand-info-card hidden">
-        <div class="info-content">
-            <h2 id="active-brand-title">Marka Adı</h2>
-            <p id="active-brand-desc">Açıklama...</p>
-            <button id="btn-load-feed" class="btn-primary">Ürünleri Gör (Akışı Başlat)</button>
+    <!-- MARKA BİLGİ VE PAYLAŞ SARMALI (Kolay düzenleme için ayrı) -->
+    <section id="brand-info-card" class="brand-info-card-wrapper">
+        <div class="info-glass-panel">
+            
+            <!-- PAYLAŞ İKONU SARMALI (İleride düzenlemek/taşımak için izole edildi) -->
+            <div class="share-action-wrapper">
+                <button id="btn-share-brand" class="share-btn" title="Markayı Paylaş">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                    <span>Paylaş</span>
+                </button>
+            </div>
+
+            <span class="badge">Seçilen Marka</span>
+            <h1 id="active-brand-title">Yükleniyor...</h1>
+            <p id="active-brand-desc">Marka detayları yükleniyor, lütfen bekleyin.</p>
+            <button id="btn-load-feed" class="btn-immersive">
+                <span>Ürün Akışını Başlat</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+            </button>
         </div>
     </section>
 
-    <!-- ALT KISIM: Tam Ekran Dikey Ürün Akışı -->
-    <main class="feed-wrapper">
-        <button id="btn-up" class="nav-btn up" aria-label="Yukarı">▲</button>
-        <div id="feed" class="feed-container">
-            <div class="welcome-placeholder">
-                <p>Ürün akışını görmek için yukarıdan bir marka seçin ve "Ürünleri Gör" butonuna basın.</p>
+    <!-- TAM EKRAN AKIŞ SARMALI (Kolay düzenleme için ayrı) -->
+    <div id="immersive-feed-overlay" class="immersive-overlay hidden">
+        <div class="immersive-modal">
+            <button id="btn-close-feed" class="close-btn" title="Kapat">&times;</button>
+            <button id="btn-up" class="nav-btn up" aria-label="Yukarı">▲</button>
+            <div id="feed" class="feed-container">
+                <!-- Ürünler buraya tam ekran dolacak -->
             </div>
+            <button id="btn-down" class="nav-btn down" aria-label="Aşağı">▼</button>
         </div>
-        <button id="btn-down" class="nav-btn down" aria-label="Aşağı">▼</button>
-    </main>
+    </div>
 
     <script src="vitrin-motor.js"></script>
 </body>
