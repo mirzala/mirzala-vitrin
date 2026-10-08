@@ -1,57 +1,95 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modüler Premium Marka Vitrini</title>
-    <link rel="stylesheet" href="vitrin-stil.css">
-</head>
-<body>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0b0f19; color: #fff; font-family: system-ui, -apple-system, sans-serif; overflow-x: hidden; }
 
-    <!-- MARKA VİTRİNİ SARMALI -->
-    <header class="brand-showcase-wrapper">
-        <div class="showcase-header">
-            <h2>Marka Keşfi</h2>
-            <span class="subtitle">Özel Seçki ve İş Ortaklıkları</span>
-        </div>
-        <div id="brand-slider" class="brand-slider"></div>
-    </header>
+/* Yatay Marka Kaydırma Alanı */
+.brand-showcase { padding: 20px; background: #131b2e; border-bottom: 1px solid #1e293b; }
+.brand-showcase h1 { font-size: 1.1rem; margin-bottom: 12px; color: #94a3b8; letter-spacing: 0.5px; }
+.brand-slider {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 8px;
+}
+.brand-slider::-webkit-scrollbar { height: 6px; }
+.brand-slider::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 
-    <!-- MARKA BİLGİ VE PAYLAŞ SARMALI -->
-    <section id="brand-info-card" class="brand-info-card-wrapper">
-        <div class="info-glass-panel">
-            
-            <!-- PAYLAŞ İKONU SARMALI -->
-            <div class="share-action-wrapper">
-                <button id="btn-share-brand" class="share-btn" title="Markayı Paylaş">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                    <span>Paylaş</span>
-                </button>
-            </div>
+/* Premium Marka Kartı (Pill) */
+.brand-pill {
+    flex: 0 0 auto;
+    width: 130px;
+    height: 75px;
+    background: #1e293b;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    scroll-snap-align: start;
+    border: 2px solid transparent;
+    transition: all 0.25s ease;
+    padding: 8px;
+}
+.brand-pill:hover { background: #334155; }
+.brand-pill.active { border-color: #06b6d4; background: #0369a1; }
+.brand-pill span { font-weight: 600; font-size: 0.9rem; color: #f8fafc; }
 
-            <span class="badge">Seçilen Marka</span>
-            <h1 id="active-brand-title">Yükleniyor...</h1>
-            <p id="active-brand-desc">Marka detayları yükleniyor...</p>
-            <button id="btn-load-feed" class="btn-immersive">
-                <span>Ürün Akışını Başlat</span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
-            </button>
-        </div>
-    </section>
+/* Marka Bilgi Kartı */
+.brand-info-card {
+    background: #131b2e;
+    padding: 18px 20px;
+    margin: 15px auto;
+    max-width: 600px;
+    border-radius: 14px;
+    border: 1px solid #1e293b;
+    text-align: center;
+}
+.brand-info-card.hidden { display: none; }
+.brand-info-card h2 { font-size: 1.4rem; margin-bottom: 6px; color: #38bdf8; }
+.brand-info-card p { color: #94a3b8; font-size: 0.9rem; margin-bottom: 12px; line-height: 1.4; }
+.btn-primary {
+    background: #06b6d4; color: #0b0f19; border: none; padding: 10px 22px;
+    font-weight: 700; border-radius: 8px; cursor: pointer; transition: background 0.2s;
+}
+.btn-primary:hover { background: #22d3ee; }
 
-    <!-- TAM EKRAN AKIŞ SARMALI -->
-    <div id="immersive-feed-overlay" class="immersive-overlay hidden">
-        <div class="immersive-modal">
-            <button id="btn-close-feed" class="close-btn" title="Kapat">&times;</button>
-            <button id="btn-up" class="nav-btn up" aria-label="Yukarı">▲</button>
-            <div id="feed" class="feed-container"></div>
-            <button id="btn-down" class="nav-btn down" aria-label="Aşağı">▼</button>
-        </div>
-    </div>
+/* Dikey Akış İskeleti */
+.feed-wrapper { position: relative; height: 65vh; width: 100%; display: flex; justify-content: center; padding-bottom: 20px; }
+.feed-container {
+    width: 100%; max-width: 420px; height: 100%; overflow-y: scroll;
+    scroll-snap-type: y mandatory; scroll-behavior: smooth;
+    background: #05070c; border-radius: 16px; position: relative; border: 1px solid #1e293b;
+}
+.feed-container::-webkit-scrollbar { display: none; }
 
-    <!-- MODÜLER JS DOSYALARI (Sırasıyla yüklenir) -->
-    <script src="js/api.js"></script>
-    <script src="js/slider.js"></script>
-    <script src="js/akis.js"></script>
-</body>
-</html>
+.welcome-placeholder {
+    height: 100%; display: flex; align-items: center; justify-content: center;
+    color: #64748b; text-align: center; padding: 30px; font-size: 0.95rem;
+}
+
+/* Ürün Kartı Stili */
+.card {
+    height: 100%; scroll-snap-align: start; display: flex; flex-direction: column;
+    background: #0f172a; position: relative; border-bottom: 1px solid #1e293b;
+}
+.card-img { flex: 1; width: 100%; background: #000; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; }
+.card-body { padding: 16px; background: rgba(15, 23, 42, 0.95); }
+.card-title { font-size: 1.1rem; margin-bottom: 6px; color: #f1f5f9; }
+.card-desc { font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.card-cta { display: block; text-align: center; background: #2563eb; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.card-cta:hover { background: #1d4ed8; }
+
+/* Navigasyon Okları */
+.nav-btn {
+    position: absolute; right: calc(50% - 240px); z-index: 10; background: rgba(30, 41, 59, 0.85);
+    color: white; border: none; width: 38px; height: 38px; border-radius: 50%;
+    cursor: pointer; font-size: 0.9rem; backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center;
+}
+.nav-btn.up { top: 15px; }
+.nav-btn.down { bottom: 35px; }
+
+@media (max-width: 500px) {
+    .nav-btn { right: 15px; }
+}
