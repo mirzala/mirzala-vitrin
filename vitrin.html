@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinamik Marka Akış Vitrini</title>
+    <link rel="stylesheet" href="vitrin-stil.css">
+</head>
+<body>
+
+    <!-- ÜST KISIM: Yatay Kaydırılabilir Premium Marka Slider'ı -->
+    <header class="brand-showcase">
+        <h1>Marka Keşfi</h1>
+        <div id="brand-slider" class="brand-slider">
+            <!-- JavaScript ile markalar buraya dinamik dolacak -->
+        </div>
+    </header>
+
+    <!-- ORTA KISIM: Seçilen Markanın Bilgi Kartı -->
+    <section id="brand-info-card" class="brand-info-card hidden">
+        <div class="info-content">
+            <h2 id="active-brand-title">Marka Adı</h2>
+            <p id="active-brand-desc">Açıklama...</p>
+            <button id="btn-load-feed" class="btn-primary">Ürünleri Gör (Akışı Başlat)</button>
+        </div>
+    </section>
+
+    <!-- ALT KISIM: Tam Ekran Dikey Ürün Akışı -->
+    <main class="feed-wrapper">
+        <button id="btn-up" class="nav-btn up" aria-label="Yukarı">▲</button>
+        <div id="feed" class="feed-container">
+            <div class="welcome-placeholder">
+                <p>Ürün akışını görmek için yukarıdan bir marka seçin ve "Ürünleri Gör" butonuna basın.</p>
+            </div>
+        </div>
+        <button id="btn-down" class="nav-btn down" aria-label="Aşağı">▼</button>
+    </main>
+
+    <script src="vitrin-motor.js"></script>
+</body>
+</html>
